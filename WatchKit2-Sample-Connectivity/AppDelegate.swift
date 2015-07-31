@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         // 在Watch和iPhone端都需要激活一个Session
         if (WCSession.isSupported()) {                  // 1. 检测是否支持WCSession
             let session = WCSession.defaultSession()    // 2. 获取Session对象
-            session.delegate = self                     // 3. 绑定为Session的代理对象
+            session.delegate = self                     // 3. 为Session指定一个的代理（代理类必须实现WCSessionDelegate协议
             session.activateSession()                   // 4. 激活Session
         }
         
