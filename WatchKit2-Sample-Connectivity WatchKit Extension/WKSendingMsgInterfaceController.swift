@@ -15,62 +15,36 @@ class WKSendingMsgInterfaceController: WKInterfaceController, WCSessionDelegate 
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
-        // Activate the session on both sides to enable communication.
-        if (WCSession.isSupported()) {
-            let session = WCSession.defaultSession()
-            session.delegate = self // conforms to WCSessionDelegate
-            session.activateSession()
+        // 在Watch和iPhone端都需要激活一个Session
+        if (WCSession.isSupported()) {                  // 1. 检测是否支持WCSession
+            let session = WCSession.defaultSession()    // 2. 获取Session对象
+            session.delegate = self                     // 3. 绑定为Session的代理对象
+            session.activateSession()                   // 4. 激活Session
         }
     }
-    
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-    
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
-    
-    
-    // =========================================================================
-    // MARK: - WCSessionDelegate
-    
-    func sessionWatchStateDidChange(session: WCSession) {
-        print(__FUNCTION__)
-        print(session)
-        print("reachable:\(session.reachable)")
-    }
-    
-    // Received message from iPhone
+
+    // WCSessionDelegate协议的函数， 收到消息时被触发
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        print(__FUNCTION__)
-        guard message["request"] as? String == "showAlert" else {return}
-        
+        print("收到消息：")
         let defaultAction = WKAlertAction(
-            title: "OK",
+            title: "关闭",
             style: WKAlertActionStyle.Default) { () -> Void in
         }
-        let actions = [defaultAction]
-        
+        // 弹出Alert窗口，显示收到的消息
         self.presentAlertControllerWithTitle(
-            "Message Received",
-            message: "",
+            "收到来自iPhone的消息:",
+            message: message["问候"] as? String,
             preferredStyle: WKAlertControllerStyle.Alert,
-            actions: actions)
+            actions: [defaultAction])
     }
-    
-    
-    // =========================================================================
-    // MARK: - Actions
-    
-    @IBAction func sendBtnTapped() {
-        print("Sending message from watch.")
-        let message = ["request": "fireLocalNotification"]
+
+    // Action：关联按钮[发送消息给iPhone]
+    @IBAction func sendMsgToIPhoneBtnTapped() {
+        print("正在发送消息给iPhone..")
+        let message = ["问候": "你好iPhone，我是Apple Watch。"]
         WCSession.defaultSession().sendMessage(
             message, replyHandler: { (replyMessage) -> Void in
-                //
+                // 异常处理
             }) { (error) -> Void in
                 print(error.localizedDescription)
         }
