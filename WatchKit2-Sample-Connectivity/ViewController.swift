@@ -11,37 +11,27 @@ import WatchConnectivity
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // =========================================================================
-    // MARK: - Actions
-    
-    @IBAction func sendToWatchBtnTapped(sender: UIButton!) {
+    // Action: 关联按钮[发送消息给Watch]
+    @IBAction func sendMsgToWatchBtnTapped(sender: UIButton!) {
         
-        // check the reachablity
+        // 检查连接
         if WCSession.defaultSession().reachable == false {
-            
+            // 无法连接到Watch
             let alert = UIAlertController(
-                title: "Failed to send",
-                message: "Apple Watch is not reachable.",
+                title: "发送失败！",
+                message: "无法连接到Watch。",
                 preferredStyle: UIAlertControllerStyle.Alert)
             self.presentViewController(alert, animated: true, completion: nil)
             
             return
         }
         
-        let message = ["request": "showAlert"]
+        // 连接没问题，发送消息
+        let message = ["问候": "你好Apple Watch，我是iPhone。"]
         WCSession.defaultSession().sendMessage(
-            message, replyHandler: { (replyMessage) -> Void in
-                //
+            message,
+            replyHandler: { (replyMessage) -> Void in
+            // 异常处理
             }) { (error) -> Void in
                 print(error.localizedDescription)
         }
