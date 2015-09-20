@@ -219,6 +219,7 @@
 		0D4A36C31B5B8CB200CCA638 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = XuQing1001;
 				TargetAttributes = {
@@ -530,6 +531,7 @@
 				0D4A36FC1B5B8CB200CCA638 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D4A36FE1B5B8CB200CCA638 /* Build configuration list for PBXNativeTarget "WatchKit2-Sample-Connectivity WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +540,7 @@
 				0D4A37001B5B8CB200CCA638 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D4A37021B5B8CB200CCA638 /* Build configuration list for PBXNativeTarget "WatchKit2-Sample-Connectivity" */ = {
 			isa = XCConfigurationList;
@@ -546,6 +549,7 @@
 				0D4A37041B5B8CB200CCA638 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
